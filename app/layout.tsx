@@ -3,7 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/Nav/NavBar";
 import Footer from "./components/Footer";
-import Auth0ProviderWithNavigate from "./auth/Auth0ProviderWithNavigate";
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+// import Auth0ProviderWithNavigate from "./auth/Auth0ProviderWithNavigate";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
@@ -19,15 +20,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <UserProvider>
       <body className={`${poppins.className} text-slate-700 scroll-smooth`}>
         <div className="flex flex-col min-h-screen">
           <NavBar />
           <main className="flex-grow">
-            <Auth0ProviderWithNavigate>{children}</Auth0ProviderWithNavigate>
+            {children}
           </main>
           <Footer />
         </div>
       </body>
+      </UserProvider>
     </html>
   );
 }
